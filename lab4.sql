@@ -1,19 +1,104 @@
--- SQL commands for lab4
+-- SQL Script for Lab 4
+-- Database Operations with Table Creation and Data Insertion
 
-CREATE TABLE Students (
-    ID INT PRIMARY KEY,
-    Name VARCHAR(100),
-    Age INT
+CREATE TABLE PRODUCT (
+    PRODUCTNO VARCHAR2(10) PRIMARY KEY,
+    QTY_ORDER VARCHAR2(10),
+    RATE NUMBER(10,2)
 );
 
-INSERT INTO Students (ID, Name, Age) VALUES (1, 'Alice', 20);
-INSERT INTO Students (ID, Name, Age) VALUES (2, 'Bob', 21);
+INSERT INTO PRODUCT VALUES ('IND01', '10', 275.50);
+INSERT INTO PRODUCT VALUES ('IND02', '7', 105.75);
+INSERT INTO PRODUCT VALUES ('IND03', '3', 87.55);
 
--- Output results
-SELECT * FROM Students;
+-- PRODUCT Table Output:
+-- PRODUCTNO  QTY_ORDER        RATE
+-- ---------- ---------- ----------
+-- IND01      10              275.5
+-- IND02      7              105.75
+-- IND03      3               87.55
 
--- Result:
--- | ID | Name  | Age |
--- |----|-------|-----|
--- |  1 | Alice |  20 |
--- |  2 | Bob   |  21 |
+CREATE TABLE CLIENT (
+    CLIENTNO VARCHAR2(10) UNIQUE,
+    NAME VARCHAR2(10),
+    CITY VARCHAR2(10),
+    SALARY NUMBER(10,2)
+);
+
+INSERT INTO CLIENT VALUES ('IUT01', 'SWAGAT', 'CTC', 387.55);
+INSERT INTO CLIENT VALUES ('IUT02', 'NILESH', 'CDA', 255.35);
+INSERT INTO CLIENT VALUES ('IUT03', 'SHREESH', 'BBSR', 557.30);
+
+-- CLIENT Table Output:
+-- CLIENTNO   NAME       CITY           SALARY
+-- ---------- ---------- ---------- ----------
+-- IUT01      SWAGAT     CTC            387.55
+-- IUT02      NILESH     CDA            255.35
+-- IUT03      SHREESH    BBSR           557.3
+
+CREATE TABLE EMPLOYEE (
+    EMPNO VARCHAR2(10)
+        CHECK (EMPNO LIKE 'E%'),
+    FNAME VARCHAR2(10)
+        CHECK (FNAME = UPPER(FNAME)),
+    MNAME VARCHAR2(10),
+    LNAME VARCHAR2(10)
+        CHECK (LNAME = UPPER(LNAME))
+);
+
+INSERT INTO EMPLOYEE VALUES ('E101','RAHUL','K','SHARMA');
+INSERT INTO EMPLOYEE VALUES ('E102','ANIL','M','VERMA');
+
+-- EMPLOYEE Table Output:
+-- EMPNO      FNAME      MNAME      LNAME
+-- ---------- ---------- ---------- ----------
+-- E101       RAHUL      K          SHARMA
+-- E102       ANIL       M          VERMA
+
+CREATE TABLE CUSTOMER (
+    CUSTOMERNO VARCHAR2(10) NOT NULL,
+    NAME VARCHAR2(10) NOT NULL,
+    SALARY NUMBER(10,2),
+    ADDRESS VARCHAR2(10)
+);
+
+INSERT INTO CUSTOMER VALUES ('CU01','AMAN',50000,'DELHI');
+INSERT INTO CUSTOMER VALUES ('CU02','ROHIT',60000,'MUMBAI');
+
+-- CUSTOMER Table Output:
+-- CUSTOMERNO NAME           SALARY ADDRESS
+-- ---------- ---------- ---------- ----------
+-- CU01       AMAN            50000 DELHI
+-- CU02       ROHIT           60000 MUMBAI
+
+CREATE TABLE SALESORDERDETAILS (
+    DORDERNO VARCHAR2(10),
+    PRODUCTNO VARCHAR2(10),
+    QTYORDER NUMBER(8,2),
+    RATE NUMBER(10,2),
+    CONSTRAINT pk_dorderno PRIMARY KEY (DORDERNO)
+);
+
+INSERT INTO SALESORDERDETAILS VALUES ('D101','P101',5,1500);
+INSERT INTO SALESORDERDETAILS VALUES ('D102','P102',10,2500);
+
+-- SALESORDERDETAILS Table Output:
+-- DORDERNO   PRODUCTNO    QTYORDER       RATE
+-- ---------- ---------- ---------- ----------
+-- D101       P101                5       1500
+-- D102       P102               10       2500
+
+COMMIT;
+
+ALTER TABLE EMPLOYEE
+ADD CONSTRAINT pk_fname PRIMARY KEY (FNAME);
+
+CREATE TABLE SALESORDER10 (
+    ORDERNO VARCHAR2(10),
+    PRODUCTNO VARCHAR2(10),
+    QTYORDER NUMBER(8,2),
+    RATE NUMBER(10,2)
+);
+
+ALTER TABLE EMPLOYEE
+DROP PRIMARY KEY;
