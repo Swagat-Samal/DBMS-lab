@@ -1,11 +1,19 @@
--- SQL commands from lab4.txt
-CREATE TABLE Students (
-    StudentID INT PRIMARY KEY,
-    Name VARCHAR(255) NOT NULL,
-    Age INT,
-    Major VARCHAR(255)
+-- Content copied from lab4.txt
+
+-- SQL CREATE TABLE statements
+CREATE TABLE example (
+    id INT PRIMARY KEY,
+    name VARCHAR(100)
 );
 
-INSERT INTO Students (StudentID, Name, Age, Major) VALUES (1, 'John Doe', 20, 'Computer Science');
-INSERT INTO Students (StudentID, Name, Age, Major) VALUES (2, 'Jane Smith', 22, 'Mathematics');
--- Add more SQL commands as per lab4.txt...
+-- SQL INSERT statements
+INSERT INTO example (id, name) VALUES (1, 'Sample Name');
+
+-- SQL SELECT statements
+SELECT * FROM example;
+
+-- SQL ALTER TABLE statements
+ALTER TABLE example ADD COLUMN email VARCHAR(100);
+
+-- COMMIT statement
+COMMIT;
