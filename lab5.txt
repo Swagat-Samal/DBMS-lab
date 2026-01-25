@@ -1,0 +1,164 @@
+SQL> SELECT D.CNAME
+  2  FROM DEPOSIT25057079 D, CUSTOMER25057079 C, BRANCH25057079 B
+  3  WHERE D.CNAME = C.CNAME
+  4  AND D.BNAME = B.BNAME
+  5  AND C.CITY = B.CITY;
+
+no rows selected
+
+SQL> SELECT B.CNAME
+  2  FROM DEPOSIT25057079 D, BORROW25057079 B
+  3  WHERE D.CNAME = B.CNAME
+  4  AND D.AMOUNT > 1000
+  5  AND B.AMOUNT > 2000;
+
+CNAME                                                                                                                                                                                                   
+--------------------                                                                                                                                                                                    
+SUNIL                                                                                                                                                                                                   
+RAHUL                                                                                                                                                                                                   
+PRAMOD                                                                                                                                                                                                  
+
+SQL> SELECT D.CNAME
+  2  FROM DEPOSIT25057079 D, CUSTOMER25057079 C, BRANCH25057079 B
+  3  WHERE D.CNAME = C.CNAME
+  4  AND D.BNAME = B.BNAME
+  5  AND C.CITY = 'BOMBAY'
+  6  AND B.CITY = 'NAGPUR';
+
+no rows selected
+
+SQL> SELECT B.CITY AS BRANCH_CITY, C.CITY AS LIVING_CITY
+  2  FROM DEPOSIT25057079 D, BRANCH25057079 B, CUSTOMER25057079 C
+  3  WHERE D.BNAME = B.BNAME
+  4  AND D.CNAME = C.CNAME
+  5  AND D.CNAME = 'PRAMOD';
+
+BRANCH_CITY          LIVING_CITY                                                                                                                                                                        
+-------------------- --------------------                                                                                                                                                               
+BANGALORE            NAGPUR                                                                                                                                                                             
+
+SQL> SELECT B.LOANNO, B.AMOUNT AS LOAN_AMOUNT,
+  2         D.ACTNO, D.AMOUNT AS DEPOSIT_AMOUNT
+  3  FROM BORROW25057079 B, DEPOSIT25057079 D, CUSTOMER25057079 C
+  4  WHERE B.CNAME = D.CNAME
+  5  AND D.CNAME = C.CNAME
+  6  AND C.CITY = 'NAGPUR';
+
+LOANN LOAN_AMOUNT ACTNO DEPOSIT_AMOUNT                                                                                                                                                                  
+----- ----------- ----- --------------                                                                                                                                                                  
+321          2000 103             1200                                                                                                                                                                  
+375          8000 104             3000                                                                                                                                                                  
+
+SQL> CREATE TABLE EMPLOYEE_CITY (
+  2      ENAME VARCHAR2(20),
+  3      CITY VARCHAR2(20)
+  4  );
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO EMPLOYEE_CITY VALUES ('ANIL','NAGPUR');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_CITY VALUES ('SANKAR','BOMBAY');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_CITY VALUES ('JAYA','MADRAS');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_CITY VALUES ('SUNIL','BOMBAY');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_CITY VALUES ('VIJAY','DELHI');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_CITY VALUES ('PRAKASH','CALCUTTA');
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE_CITY VALUES ('AJAY','MADRAS');
+
+1 row created.
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM EMPLOYEE_CITY;
+
+ENAME                CITY                                                                                                                                                                               
+-------------------- --------------------                                                                                                                                                               
+ANIL                 NAGPUR                                                                                                                                                                             
+SANKAR               BOMBAY                                                                                                                                                                             
+JAYA                 MADRAS                                                                                                                                                                             
+SUNIL                BOMBAY                                                                                                                                                                             
+VIJAY                DELHI                                                                                                                                                                              
+PRAKASH              CALCUTTA                                                                                                                                                                           
+AJAY                 MADRAS                                                                                                                                                                             
+
+7 rows selected.
+
+SQL> SELECT E1.ENAME
+  2  FROM EMPLOYEE_CITY E1, EMPLOYEE_CITY E2
+  3  WHERE E1.CITY = E2.CITY
+  4  AND E2.ENAME = 'SUNIL'
+  5  AND E1.ENAME <> 'SUNIL';
+
+ENAME                                                                                                                                                                                                   
+--------------------                                                                                                                                                                                    
+SANKAR                                                                                                                                                                                                  
+
+SQL> CREATE TABLE EMPLOYEE1 (
+  2      EMPNO NUMBER,
+  3      NAME VARCHAR2(20),
+  4      MGRNO NUMBER
+  5  );
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO EMPLOYEE1 VALUES (10,'ASHOK',11);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE1 VALUES (11,'RAVI',12);
+
+1 row created.
+
+SQL> INSERT INTO EMPLOYEE1 VALUES (12,'SUMIT',13);
+
+1 row created.
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM EMPLOYEE1;
+
+     EMPNO NAME                      MGRNO                                                                                                                                                              
+---------- -------------------- ----------                                                                                                                                                              
+        10 ASHOK                        11                                                                                                                                                              
+        11 RAVI                         12                                                                                                                                                              
+        12 SUMIT                        13                                                                                                                                                              
+
+SQL> SELECT E.NAME AS EMPLOYEE, M.NAME AS MANAGER
+  2  FROM EMPLOYEE1 E, EMPLOYEE1 M
+  3  WHERE E.MGRNO = M.EMPNO;
+
+EMPLOYEE             MANAGER                                                                                                                                                                            
+-------------------- --------------------                                                                                                                                                               
+ASHOK                RAVI                                                                                                                                                                               
+RAVI                 SUMIT                                                                                                                                                                              
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SPOOL OFF;

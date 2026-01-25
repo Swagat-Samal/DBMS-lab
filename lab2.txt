@@ -1,0 +1,141 @@
+SQL> SELECT * FROM DEPOSIT25057079
+  2  WHERE AMOUNT > 1000 ORDER BY CNAME ASC;
+
+ACTNO CNAME                BNAME                    AMOUNT ADATE                
+----- -------------------- -------------------- ---------- ---------            
+103   MADHURI              CHANDNI                    1200 17-DEC-95            
+104   PRAMOD               MGROAD                     3000 27-MAR-96            
+102   RAHUL                KAROLBAGH                  3500 17-NOV-95            
+105   SANDIP               KAROLBAGH                  2000 31-MAR-96            
+101   SUNIL                MGROAD                     5000 04-JAN-96            
+
+SQL> SELECT * FROM DEPOSIT25057079
+  2  WHERE AMOUNT > 1000 ORDER BY CNAME DESC;
+
+ACTNO CNAME                BNAME                    AMOUNT ADATE                
+----- -------------------- -------------------- ---------- ---------            
+101   SUNIL                MGROAD                     5000 04-JAN-96            
+105   SANDIP               KAROLBAGH                  2000 31-MAR-96            
+102   RAHUL                KAROLBAGH                  3500 17-NOV-95            
+104   PRAMOD               MGROAD                     3000 27-MAR-96            
+103   MADHURI              CHANDNI                    1200 17-DEC-95            
+
+SQL> SELECT * FROM BORROW25057079
+  2  WHERE SUBSTR(CNAME,3,1) IN ('A','D');
+
+LOANN CNAME                BNAME                    AMOUNT                      
+----- -------------------- -------------------- ----------                      
+321   MADHURI              CHANDNI                    2000                      
+375   PRAMOD               MGROAD                     8000                      
+
+SQL> SELECT * FROM BORROW25057079
+  2  WHERE AMOUNT NOT BETWEEN 2000 AND 8000;
+
+LOANN CNAME                BNAME                    AMOUNT                      
+----- -------------------- -------------------- ----------                      
+201   ANIL                 VRCE                       1000                      
+
+SQL> SELECT DISTINCT * FROM DEPOSIT25057079;
+
+ACTNO CNAME                BNAME                    AMOUNT ADATE                
+----- -------------------- -------------------- ---------- ---------            
+100   ANIL                 VRCE                       1000 01-MAR-95            
+104   PRAMOD               MGROAD                     3000 27-MAR-96            
+101   SUNIL                MGROAD                     5000 04-JAN-96            
+105   SANDIP               KAROLBAGH                  2000 31-MAR-96            
+103   MADHURI              CHANDNI                    1200 17-DEC-95            
+102   RAHUL                KAROLBAGH                  3500 17-NOV-95            
+
+6 rows selected.
+
+SQL> UPDATE DEPOSIT25057079
+  2  SET AMOUNT = AMOUNT + (AMOUNT*0.10)
+  3  WHERE BNAME='VRCE';
+
+1 row updated.
+
+SQL> UPDATE DEPOSIT25057079
+  2  SET AMOUNT = AMOUNT + (AMOUNT*0.10)
+  3  WHERE BNAME='VRCE' AND CNAME='ANIL';
+
+1 row updated.
+
+SQL> CREATE TABLE STUDENT (
+  2      NAME   VARCHAR2(20),
+  3      ROLLNO NUMBER(10),
+  4      BRANCH VARCHAR2(20),
+  5      CITY   VARCHAR2(20)
+  6  );
+
+Table created.
+
+SQL> INSERT INTO STUDENT VALUES ('VIJAYA',150,'CSE','CHENNAI');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES ('SITA',202,'ETC','KOLKATA');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES ('RAVI',300,'EEE','DELHI');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES ('BASU',165,'ETC','CHENNAI');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES ('RASMI',107,'ETC','RKL');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES ('KARAN',111,'CSE','CTC');
+
+1 row created.
+
+SQL> INSERT INTO STUDENT VALUES ('REKHA',117,'BME','BBSR');
+
+1 row created.
+
+SQL> SELECT BRANCH, COUNT(*) FROM STUDENT GROUP BY BRANCH;
+
+BRANCH                 COUNT(*)                                                 
+-------------------- ----------                                                 
+EEE                           1                                                 
+ETC                           3                                                 
+CSE                           2                                                 
+BME                           1                                                 
+
+SQL> SELECT BRANCH, COUNT(*) FROM STUDENT
+  2  WHERE BRANCH LIKE 'E%' GROUP BY BRANCH;
+
+BRANCH                 COUNT(*)                                                 
+-------------------- ----------                                                 
+EEE                           1                                                 
+ETC                           3                                                 
+
+SQL> ALTER TABLE STUDENT ADD MARKS NUMBER(8);
+
+Table altered.
+
+SQL> ALTER TABLE STUDENT MODIFY NAME VARCHAR2(25);
+
+Table altered.
+
+SQL> DELETE FROM STUDENT WHERE BRANCH='ETC';
+
+3 rows deleted.
+
+SQL> RENAME STUDENT TO STUDINFORMATION;
+
+Table renamed.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> DROP TABLE STUDINFORMATION;
+
+Table dropped.
+
+SQL> spool off;
